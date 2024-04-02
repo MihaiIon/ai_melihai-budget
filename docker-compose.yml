@@ -9,7 +9,7 @@ services:
       - POSTGRES_PASSWORD=${POSTGRES_PASSWORD}
       - POSTGRES_DB=${POSTGRES_DB}
     volumes:
-      - ai_budget-management-db:/var/lib/postgresql/data
+      - flask-app-db:/var/lib/postgresql/data
     ports:
       - "5432:5432"
   app:
@@ -31,4 +31,4 @@ services:
 
 volumes:
   flask-app-db:
-    name: ai_budget-management-db
+    name: flask-app-db
