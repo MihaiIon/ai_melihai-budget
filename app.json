@@ -1,11 +1,11 @@
 {
-    "name": "Flask Boilerplate",
-    "description": "Simple but opinionated flask boilerplate with Postgres, Docker, and Heroku",
+    "name": "AI | Budget Manager",
+    "description": "Simple Budget Manager with Postgres, Docker, and Heroku",
     "keywords": [
         "flask",
         "postgresql"
     ],
-    "repository": "https://github.com/tko22/flask-boilerplate",
+    "repository": "https://github.com/MihaiIon/ai_melihai-budget",
     "success_url": "/",
     "scripts": {
         "postdeploy": "make heroku_setup"

@@ -1,6 +1,6 @@
 {
   "version": 1,
-  "name": "flask-boilerplate",
+  "name": "ai_budget-manager",
   "public": true,
   "type": "docker"
 }
