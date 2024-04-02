@@ -15,8 +15,5 @@ COPY . /app
 # Install Python dependencies
 RUN pip install --no-cache-dir -r requirements.txt
 
-# Set the entrypoint script
-ENTRYPOINT ["./docker_script.sh"]
-
 # Expose port 5000
 EXPOSE 5000
