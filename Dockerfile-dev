@@ -1,10 +1,22 @@
-# Our docker-compose file uses Dockerfile-dev instead of Dockerfile
+# Use the official Python 3.7 image
 FROM python:3.7
-LABEL maintainer "Mihai Ionescu"
 
-COPY . /app
+# Install Tesseract OCR
+RUN apt-get update && apt-get install -y \
+    tesseract-ocr \
+    tesseract-ocr-fra # (optional - for French language support)
+
+# Set the working directory in the container
 WORKDIR /app
-RUN pip install -r requirements.txt
 
-ENV FLASK_ENV=docker
+# Copy the application code into the container
+COPY . /app
+
+# Install Python dependencies
+RUN pip install --no-cache-dir -r requirements.txt
+
+# Set the entrypoint script
+ENTRYPOINT ["./docker_script.sh"]
+
+# Expose port 5000
 EXPOSE 5000
