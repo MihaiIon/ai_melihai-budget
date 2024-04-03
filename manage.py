@@ -1,39 +1,34 @@
-from flask_script import Manager
-from flask_migrate import Migrate, MigrateCommand
+import click
+from flask_migrate import Migrate
 from api import create_app
 from api.models import db
 
-# sets up the app
+# Create an app instance
 app = create_app()
 
-manager = Manager(app)
+# Initialize the database
 migrate = Migrate(app, db)
 
-# adds the python manage.py db init, db migrate, db upgrade commands
-manager.add_command("db", MigrateCommand)
-
-
-@manager.command
-def runserver():
-    app.run(debug=True, host="0.0.0.0", port=5000)
-
-
-@manager.command
-def runworker():
-    app.run(debug=False)
-
-
-@manager.command
+###
+# Custom CLI commands to recreate the database
+###
+@app.cli.command("recreate_db")
 def recreate_db():
-    """
-    Recreates a database. This should only be used once
-    when there's a new database instance. This shouldn't be
-    used when you migrate your database.
-    """
+    """Recreates a database."""
     db.drop_all()
     db.create_all()
-    db.session.commit()
+    click.echo("Database recreated successfully.")
 
+###
+# Custom CLI commands to run the development server
+###
+@app.cli.command("runserver")
+@click.option("--host", default="127.0.0.1", help="Host IP address")
+@click.option("--port", default=5000, help="Port number")
+@click.option("--debug", is_flag=True, help="Enable debug mode")
+def runserver(host, port, debug):
+    """Runs the development server."""
+    app.run(host=host, port=port, debug=debug)
 
 if __name__ == "__main__":
-    manager.run()
+    app.run()
