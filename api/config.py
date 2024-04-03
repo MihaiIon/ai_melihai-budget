@@ -1,6 +1,6 @@
 """
 This file holds Configuration options. The Development config looks for a creds.ini file or defaults to the normal url. 
-DockerDevConfig is used when the env variable FLASK_ENV=docker, which is currently used in Dockerfile-dev and thus,
+DockerDevConfig is used when the env variable FLASK_DEBUG=docker, which is currently used in Dockerfile-dev and thus,
 docker-compose. Production is used in Heroku as well as Zeit now. You may change these however you want.
 
 DO NOT HARD CODE YOUR PRODUCTION URLS EVER. Either use creds.ini or use environment variables.
@@ -44,7 +44,7 @@ class ProductionConfig(Config):
     Hence, why it defaults to retrieving the value of the env variable `DATABASE_URL`.
     You can update it to use a `creds.ini` file or anything you want.
 
-    Requires the environment variable `FLASK_ENV=prod`
+    Requires the environment variable `FLASK_DEBUG=prod`
     """
 
     SQLALCHEMY_DATABASE_URI = os.environ.get(
@@ -59,7 +59,7 @@ class DockerDevConfig(Config):
 
     Under the assumption that you are using the provided docker-compose setup, 
     which uses the `Dockerfile-dev` setup. The container will have
-    the environment variable `FLASK_ENV=docker` to enable this configuration.
+    the environment variable `FLASK_DEBUG=docker` to enable this configuration.
     This will then set up the database with the following hard coded
     credentials. 
     """
@@ -70,5 +70,5 @@ class DockerDevConfig(Config):
     DEBUG = True
 
 
-# way to map the value of `FLASK_ENV` to a configuration
+# way to map the value of `FLASK_DEBUG` to a configuration
 config = {"dev": DevelopmentConfig, "prod": ProductionConfig, "docker": DockerDevConfig}

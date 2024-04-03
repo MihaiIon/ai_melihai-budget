@@ -19,7 +19,7 @@ services:
       context: .
       dockerfile: Dockerfile-dev
     environment:
-      - FLASK_ENV=docker
+      - FLASK_DEBUG=docker
     ports:
       - 5000:5000
     volumes:

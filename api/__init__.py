@@ -33,7 +33,7 @@ def create_app(test_config=None):
     CORS(app)  # add CORS
 
     # check environment variables to see which config to load
-    env = os.environ.get("FLASK_ENV", "dev")
+    env = os.environ.get("FLASK_DEBUG", "dev")
     # for configuration options, look at api/config.py
     if test_config:
         # purposely done so we can inject test configurations
